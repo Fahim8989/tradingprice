@@ -1,104 +1,42 @@
+const axios=require('axios');
+
 module.exports = async function (app, priceData) {
 
-    // Handle our routes
+    // General Routes
     app.get('/', function (req, res) {
         res.render('index.ejs', { ...priceData, user: req.user });
     });
     app.get('/about', function (req, res) {
-        res.render('about.ejs',priceData);
-    });
-
-    app.get('/search', function (req, res) {
-        res.render("search.ejs", priceData);
-    });
-    app.get('/search-result', function (req, res) {
-        // Searching in the database
-        let sqlquery =
-            "SELECT * from books WHERE name like '%" + req.query.keyword + "%'";
-        db.query(sqlquery, (err, result) => {
-            if (err) {
-                res.send("Error");
-            }
-            let newData = Object.assign({}, priceData, { availableBooks: result });
-            console.log(newData)
-            res.render("search-result.ejs", newData)
-
-        });
-    });
-    app.get('/register', function (req, res) {
-        res.render('register.ejs', priceData);
-    });
-
-    app.get('/addbook', function (req, res) {
-        res.render('addbook.ejs', priceData);
-    });
-
-    app.get('/list', function (req, res) {
-        // Query database to get all the books
-        let sqlquery = "SELECT * FROM books";
-
-        // Execute sql query
-        db.query(sqlquery, (err, result) => {
-            if (err) {
-                res.redirect('./');
-            }
-            let newData = Object.assign({}, priceData, { availableBooks: result });
-            console.log(newData)
-            res.render("list.ejs", newData)
-        });
-    });
-
-    app.get('/bargainbooks', function (req, res) {
-        let sqlquery = "SELECT * FROM books WHERE price<20";
-        db.query(sqlquery, (err, result) => {
-            if (err) {
-                res.redirect('./');
-            }
-            let newData = Object.assign({}, priceData, { availableBooks: result });
-            console.log(newData)
-            res.render("bargainbooks.ejs", newData)
-        });
+        res.render('about.ejs', { ...priceData, user: req.user });
     });
 
 
-    app.post('/registered', function (req, res) {
-        const bcrypt = require('bcrypt');
-        const saltRounds = 10;
-        const plainPassword = req.body.password;
-        bcrypt.hash(plainPassword, saltRounds, function (err, hashedPassword) {
-            // Store hashed password in your database.
-        });
-        let sqlquery = "INSERT INTO userdetails (username, first_name, last_name, email, hashedPassword) VALUES (?,?,?,?,?)";
-        // execute sql query
-        let newrecord = [req.body.username, req.body.first_name, req.body.last_name, req.body.email, req.body.hashedPassword];
-        db.query(sqlquery, newrecord, (err, result) => {
-            if (err) {
-                return console.error(err.message);
-            }
-            else
-                result = 'Hello ' + req.body.first + ' ' + req.body.last + ' you are now registered!  We will send an email to you at ' + req.body.email;
-            result += 'Your password is: ' + req.body.password + ' and your hashed password is: ' + hashedPassword;
-            res.send(result);
-        });
+    // //Private
+    // app.get('/cryptorates', async (req, res) => {
+    //     try {
+    //         // Fetch cryptocurrency rates from CoinGecko API
+    //         const response = await axios.get('https://api.coingecko.com/api/v3/coins/markets', {
+    //             params: {
+    //                 vs_currency: 'usd', // You can change the currency if needed
+    //                 order: 'market_cap_desc',
+    //                 per_page: 20,
+    //                 page: 1,
+    //                 sparkline: false,
+    //             },
+    //         });
+    
+    //         const cryptoRates = response.data;
+    
+    //         // Render CryptoRate.ejs with the fetched data
+    //         res.render('cryptorate.ejs', { cryptoRates });
+    //     } catch (error) {
+    //         // console.error('Error fetching crypto rates:', error);
+    //         res.status(500).send('Error fetching crypto rates OR API LIMIT REACHED');
+    //     }
+    // });
 
-        // Saving data in database
-        res.send(' Hello ' + req.body.first + ' ' + req.body.last + ' you are now registered!  We will send an email to you at ' + req.body.email);
-    });
-
-    app.post('/bookadded', function (req, res) {
-        // saving data in database
-        let sqlquery = "INSERT INTO books (name, price) VALUES (?,?)";
-        // execute sql query
-        let newrecord = [req.body.name, req.body.price];
-        db.query(sqlquery, newrecord, (err, result) => {
-            if (err) {
-                return console.error(err.message);
-            }
-            else
-                res.send(' This book is added to the database, name: ' + req.body.name
-                    + ' price ' + req.body.price);
-        });
-    });
-
-
+    // app.get('/search', function (req, res) {
+    //     res.render("search.ejs", priceData);
+    // });
+   
 }       

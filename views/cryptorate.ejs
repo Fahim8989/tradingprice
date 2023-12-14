@@ -1,0 +1,137 @@
+<!-- views/CryptoRate.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Rates</title>
+    <style>
+        body{
+            background-color:rgb(0, 0, 0);
+            color: white;
+        }
+        .cryptorates{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1{
+            padding-top: 10px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 80%;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            cursor: pointer;
+            background-color: #aaa;
+        }
+        
+        
+        th:hover {
+            background-color: #f5f5f5;
+            color: black;
+        }
+
+        img {
+            width: 20px; /* Adjust the size of the image */
+            height: auto;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <section class="cryptorates">
+    <h1>Crypto Rates</h1>
+
+    <table id="cryptoTable">
+       <i>*click on column name for sorting </i>
+        <thead>
+            <tr>
+                <th onclick="sortTable(0)">Name</th>
+                <th onclick="sortTable(1)">Symbol</th>
+                <th onclick="sortTable(2)">Current Price (USD)</th>
+                <!-- Add other table headers as needed -->
+                <th >Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% cryptoRates.forEach(crypto => { %>
+                <tr>
+                    <td><%= crypto.name %></td>
+                    <td><img src="<%= crypto.image %>" alt="<%= crypto.symbol %>"> <%= crypto.symbol %></td>
+                    <td><%= crypto.current_price %></td>
+                    <td>
+                        <form action="/favorites/favorite/<%= crypto.id %>" method="post">
+              
+                            <input type="hidden" name="symbol" value="<%= crypto.symbol %>">
+                            <input type="hidden" name="name" value="<%= crypto.name %>">
+                            <input type="hidden" name="image" value="<%= crypto.image %>">
+                            <button type="submit">Add to Favorites</button>
+                        </form>
+                    </td>
+
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+
+    <script>
+        function sortTable(columnIndex) {
+            const table = document.getElementById("cryptoTable");
+            const rows = Array.from(table.rows).slice(1); // Exclude the header row
+    
+            rows.sort((a, b) => {
+                let aValue = a.cells[columnIndex].innerText.toLowerCase();
+                let bValue = b.cells[columnIndex].innerText.toLowerCase();
+    
+                // Special handling for Name and Symbol columns
+                if (columnIndex === 0 || columnIndex === 1) {
+                    aValue = aValue.trim(); // Remove leading/trailing whitespaces
+                    bValue = bValue.trim();
+                }
+    
+                // Numeric sorting for Current Price column
+                if (columnIndex === 2) {
+                    aValue = parseFloat(aValue.replace(/[^0-9.-]+/g, ''));
+                    bValue = parseFloat(bValue.replace(/[^0-9.-]+/g, ''));
+                }
+    
+                if (aValue < bValue) return -1;
+                if (aValue > bValue) return 1;
+                return 0;
+            });
+    
+            // Check if the table is already sorted in ascending order
+            const isSortedAscending = table.getAttribute("data-sorted-column") === String(columnIndex);
+    
+            // Reverse the array for descending order
+            if (isSortedAscending) {
+                rows.reverse();
+            }
+    
+            // Clear existing rows from the table
+            table.querySelector("tbody").innerHTML = "";
+    
+            // Append sorted rows to the table
+            rows.forEach(row => {
+                table.querySelector("tbody").appendChild(row);
+            });
+    
+            // Update the sorted column attribute
+            table.setAttribute("data-sorted-column", isSortedAscending ? "" : String(columnIndex));
+        }
+    </script>
+    
+    
+</section>
+</body>
+</html>

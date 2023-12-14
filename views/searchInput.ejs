@@ -1,0 +1,66 @@
+<!-- searchInput.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+
+    <style>
+body {
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+label {
+    margin-bottom: 10px;
+}
+
+input {
+    padding: 8px;
+    font-size: 16px;
+    width: 450px; 
+    margin: 15px;
+}
+
+button {
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #3a46e7;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color:#6670fa;
+}
+
+    </style>
+</head>
+<body>
+    <h1>Search</h1>
+
+    <!-- Search Form -->
+    <form action="/search" method="post">
+        <input type="text" id="searchTerm" name="searchTerm" required placeholder="Search by coin name or ID or Symbol">
+        <button type="submit">Search</button>
+    </form>
+</body>
+</html>

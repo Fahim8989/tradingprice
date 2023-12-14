@@ -1,16 +1,63 @@
-<!-- src/views/dashboard.ejs -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+
+    <style>
+        /* style.css */
+
+body {
+    background-color: black;
+    color: white;
+    text-align: center;
+}
+
+h1 {
+    color: lightblue;
+}
+
+a {
+    color: lightblue;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Centering the items */
+.center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Adjust as needed */
+}
+
+/* Styling the button */
+button {
+    background-color: lightblue;
+    color: black;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: white;
+    color: lightblue;
+}
+
+    </style>
 </head>
 <%- include('header') %>
 <body>
     <h1>Welcome <%= user.username %></h1>
-    <p>Email: <%= user.email %></p>
-    <a href="/user/logout">Logout</a>
+    <p><a href="/user/cryptorates"> List of coin prices</a></p>
+    <p><a href="/search">Search Coins</a></p>
+    <p><a href="/favorites">Favorites Coins</a></p>
 </body>
 </html>

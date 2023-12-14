@@ -7,9 +7,21 @@ const JWT_SECRET=process.env.JWT_SECRET_KEY;
 async function signup(req, res) {
     const { username, email, password } = req.body;
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-
     try {
+        // Check if the email already exists in the database
+        const existingUser = await userModel.getUserByEmail(email);
+        if (existingUser) {
+            // If the email already exists, return an error
+            return res.status(400).send('Email already exists');
+        }
+
+        // Check if the password meets the length requirement
+        if (password.length < 5) {
+            return res.status(400).send('Password must be at least 5 characters long');
+        }
+
+        // If the email doesn't exist and the password meets the length requirement, proceed with user creation
+        const hashedPassword = await bcrypt.hash(password, 10);
         await userModel.createUser(username, email, hashedPassword);
         res.redirect('/auth/login');
     } catch (error) {
@@ -17,6 +29,7 @@ async function signup(req, res) {
         res.status(500).send('Error creating user');
     }
 }
+
 
 
 async function login(req, res) {

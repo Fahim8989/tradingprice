@@ -1,17 +1,23 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
     <title>Welcome to <%=siteName%></title>
-    <link rel="stylesheet"  type="text/css" href="main.css"/>
+    <link rel="stylesheet" type="text/css" href="main.css" />
   </head>
-  <body>
+  <body id="home">
     <%- include('header') %>
-    <h1>Welcome to <%=siteName%></h1>
-    <p><a href="about">About <%=siteName%></a></p>
-    <p><a href="search">Search Coins</a></p>
-    <p><a href="register">Register with us</a></p>
-    <p><a href="addbook">Add a coin</a></p>
-    <p><a href="list"> List of coin prices</a></p>
-    <p><a href="bargainbooks"> Cheapest Coins</a></p>
+    <section class="content">
+      <div class="container">
+        <h1><span> <%=siteName%></span></h1>
+        <p>
+          Welcome to Trading Price Forum, your go-to destination for staying
+          informed on the latest cryptocurrency prices and trends. Explore
+          real-time updates, engage in insightful discussions, and make informed
+          trading decisions with our comprehensive platform. Join our community
+          of crypto enthusiasts and elevate your trading experience today.
+        </p>
+        <a id="joinnow" href="/auth/signup">JOIN NOW</a>
+      </div>
+    </section>
   </body>
 </html>

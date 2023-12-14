@@ -1,0 +1,90 @@
+<!-- searchResults.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+
+    <style>
+        body{
+            background-color:rgb(0, 0, 0);
+            color: white;
+        }
+        .cryptorates{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1{
+            padding-top: 10px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 80%;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            cursor: pointer;
+            background-color: #aaa;
+        }
+        
+        
+        th:hover {
+            background-color: #f5f5f5;
+            color: black;
+        }
+
+        img {
+            width: 20px; /* Adjust the size of the image */
+            height: auto;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <section class="cryptorates">
+    <h1>Search Results</h1>
+
+    <!-- Display search term -->
+    <% if (searchTerm) { %>
+        <p>Search results for "<%= searchTerm %>"</p>
+    <% } %>
+
+    <!-- Search Results Table -->
+    <% if (searchResults && searchResults.length > 0) { %>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Coin ID</th>
+                    <th>Coin Name</th>
+                    <th>Coin Symbol</th>
+                  
+                </tr>
+            </thead>
+            <tbody>
+                <% searchResults.forEach(result => { %>
+                    <tr>
+                        <td><%= result.id %></td>
+                        <td><%= result.coin_id %></td>
+                        <td><%= result.coin_name %></td>
+                        <td><%= result.coin_symbol %></td>
+                       
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    <% } else { %>
+        <p>No results found.</p>
+    <% } %>
+</section>
+</body>
+</html>

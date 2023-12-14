@@ -35,8 +35,27 @@ function getUserById(userId) {
         });
     });
 }
+async function getUserByEmail(email) {
+    return new Promise((resolve, reject) => {
+        const query = 'SELECT * FROM users WHERE email = ?';
+        db.query(query, [email], (err, results) => {
+            if (err) {
+                reject(err);
+            } else {
+                // Check if the query returned any results
+                if (results && results.length > 0) {
+                    resolve(results[0]);
+                } else {
+                    resolve(null); // Resolve with null if no user is found
+                }
+            }
+        });
+    });
+}
+
 module.exports = {
     createUser,
     getUserByUsername,
     getUserById,
+    getUserByEmail,
 };

@@ -10,6 +10,7 @@ dotenv.config();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
+const axios = require('axios');
 
 // Create the express application object
 const mysql = require('mysql');
@@ -34,14 +35,39 @@ db;
 
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
-const { default: axios } = require('axios');
+const favoriteRoutes = require('./routes/favoriteRoutes');
+const searchRoutes = require('./routes/searchRoutes');
 
 app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
-
-
-
+app.use('/favorites', favoriteRoutes);
+app.use('/search', searchRoutes);
 // Set up css
+
+
+
+// app.get('/test', (req, res, next) => {
+//     const userId = 2; // Replace with the actual user ID you want to query
+
+//     db.query('SELECT * FROM user_favorites WHERE user_id = ?', [userId], function(error, response, fields) {
+//         if (error) {
+//             console.error('Error executing query:', error);
+//             res.status(500).json({
+//                 message: 'Error retrieving data from the database',
+//                 error: error.message
+//             });
+//         } else {
+//             console.log('Query results:', response);
+
+//             res.status(200).json({
+//                 message: 'Data from Database:',
+//                 result: response
+//             });
+//         }
+//     });
+// });
+
+
 
 app.use(express.static(__dirname + '/public'));
 
@@ -66,3 +92,17 @@ require("./routes/main")(app, priceData);
 app.listen(PORT, () => console.log(`App listening on port ${PORT}!`))
 //ssh -t mahme006@doc.gold.ac.uk myserver ssh 443
 
+//api
+// const url = 'https://coinranking1.p.rapidapi.com/coins?referenceCurrencyUuid=yhjMzLPhuIDl&timePeriod=24h&tiers%5B0%5D=1&orderBy=marketCap&orderDirection=desc&limit=50&offset=0';
+// const options = {
+// 	method: 'GET',
+// 	headers: {
+// 		'X-RapidAPI-Key': '41ef405466msh963b53c61d1e5b4p1996c8jsn17b1a35d99c4',
+// 		'X-RapidAPI-Host': 'coinranking1.p.rapidapi.com'
+// 	}
+// };
+// const URL = 'https://coinranking1.p.rapidapi.com/coins?referenceCurrencyUuid=yhjMzLPhuIDl&timePeriod=24h&tiers%5B0%5D=1&orderBy=marketCap&orderDirection=desc&limit=50&offset=0'
+// 	fetch(URL, options)
+// .then(response => response.json())
+// .then(response => console.log(response))
+// .catch(err => console.error(err));
