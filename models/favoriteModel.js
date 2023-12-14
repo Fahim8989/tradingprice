@@ -13,11 +13,13 @@ function removeFavoriteByCoinId(userId, coinId, callback) {
     db.query(query, values, callback);
 }
 
-async function getFavoriteByUserIdAndCoinId(userId, coinId) {
+
+function getFavoriteByUserIdAndCoinId(userId, coinId, callback) {
     const query = 'SELECT * FROM user_favorites WHERE user_id = ? AND coin_id = ?';
-    const results = await db.query(query, [userId, coinId]);
-    return results[0];
+    db.query(query, [userId, coinId], callback);
+
 }
+
 
 function getFavoritesByUserId(userId, callback) {
     const query = 'SELECT * FROM user_favorites WHERE user_id = ?';

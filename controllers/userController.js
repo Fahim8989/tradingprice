@@ -14,6 +14,7 @@ async function getUserDetails(req, res) {
 }
 
 async function getCryptoRates(req, res) {
+    const userId = req.user.userId
     try {
         // Fetch cryptocurrency rates from CoinGecko API
         const response = await axios.get('https://api.coingecko.com/api/v3/coins/markets', {
@@ -27,9 +28,10 @@ async function getCryptoRates(req, res) {
         });
 
         const cryptoRates = response.data;
+        const user = await userModel.getUserById(userId);
 
         // Render CryptoRate.ejs with the fetched data
-        res.render('cryptorate.ejs', { cryptoRates });
+        res.render('cryptorate.ejs', { cryptoRates, user });
     } catch (error) {
         // console.error('Error fetching crypto rates:', error);
         res.status(500).send('Error fetching crypto rates OR API LIMIT REACHED');

@@ -1,24 +1,34 @@
 // controllers/favoriteController.js
 const favoriteModel = require('../models/favoriteModel');
+const userModel = require('../models/userModel');
 
 async function favoriteCoin(req, res) {
     const userId = req.user.userId;
     const coinId = req.params.coinId;
-    const coinSymbol = req.body.symbol; 
-    const coinName = req.body.name; 
+    const coinSymbol = req.body.symbol;
+    const coinName = req.body.name;
     const coinImage = req.body.image;
     try {
-        // Check if the coin is already favorited by the user
-        const existingFavorite = await favoriteModel.getFavoriteByUserIdAndCoinId(userId, coinId);
 
-        if (existingFavorite) {
-            res.status(200).send('Coin is already favorited by the user');
-            return;
-        }
+        favoriteModel.getFavoriteByUserIdAndCoinId(userId, coinId, (error, existingFavorite) => {
+            if (error) {
+                console.error('Error checking existing favorite:', error);
+                res.status(500).send('Error favoriting coin');
+                return;
+            }
+
+            if (existingFavorite.length > 0) {
+                res.status(200).send('Coin is already favorited by the user');
+                return;
+            }
+            else {
+                favoriteModel.favoriteCoin(userId, coinId, coinName, coinSymbol, coinImage);
+                res.status(200).send('Coin favorited successfully');
+            }
+        })
 
         // The coin is not favorited, proceed to favorite
-        await favoriteModel.favoriteCoin(userId, coinId, coinName, coinSymbol,coinImage);
-        res.status(200).send('Coin favorited successfully');
+
     } catch (error) {
         console.error(error);
         res.status(500).send('Error favoriting coin');
@@ -27,7 +37,7 @@ async function favoriteCoin(req, res) {
 
 function removeFavorite(req, res, next) {
     const userId = req.user.userId;
-    const coinId = req.params.coinId; 
+    const coinId = req.params.coinId;
 
     favoriteModel.removeFavoriteByCoinId(userId, coinId, (error, result) => {
         if (error) {
@@ -45,9 +55,9 @@ function removeFavorite(req, res, next) {
 
 
 
-function getFavorites(req, res, next) {
+async function getFavorites(req, res, next) {
     const userId = req.user.userId;
-
+    const user =  await userModel.getUserById(userId);
     favoriteModel.getFavoritesByUserId(userId, (error, response) => {
         if (error) {
             console.error('Error retrieving favorites:', error);
@@ -61,7 +71,8 @@ function getFavorites(req, res, next) {
             //     message: 'Favorites retrieved successfully:',
             //     favorites: response
             // });
-            res.render('favorites.ejs', { favoriteCoins:response });
+            
+            res.render('favorites.ejs', { favoriteCoins: response,user });
         }
     });
 }

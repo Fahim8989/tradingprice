@@ -45,30 +45,6 @@ app.use('/search', searchRoutes);
 // Set up css
 
 
-
-// app.get('/test', (req, res, next) => {
-//     const userId = 2; // Replace with the actual user ID you want to query
-
-//     db.query('SELECT * FROM user_favorites WHERE user_id = ?', [userId], function(error, response, fields) {
-//         if (error) {
-//             console.error('Error executing query:', error);
-//             res.status(500).json({
-//                 message: 'Error retrieving data from the database',
-//                 error: error.message
-//             });
-//         } else {
-//             console.log('Query results:', response);
-
-//             res.status(200).json({
-//                 message: 'Data from Database:',
-//                 result: response
-//             });
-//         }
-//     });
-// });
-
-
-
 app.use(express.static(__dirname + '/public'));
 
 // Set the directory where Express will pick up HTML files

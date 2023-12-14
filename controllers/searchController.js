@@ -1,15 +1,16 @@
-// searchController.js
-
+const userModel = require('../models/userModel');
 const favoriteModel = require('../models/favoriteModel');
 
-function showSearchInputPage(req, res, next) {
-    res.render('searchInput.ejs');
+ async function showSearchInputPage(req, res, next) {
+    const userId = req.user.userId; 
+    const user = await userModel.getUserById(userId);
+    res.render('searchInput.ejs', {user});
 }
 
-function searchCoins(req, res, next) {
+async function searchCoins(req, res, next) {
     const userId = req.user.userId; 
     const searchTerm = req.body.searchTerm || ''; 
-
+    const user = await userModel.getUserById(userId);
     favoriteModel.searchCoins(userId, searchTerm, (error, searchResults) => {
         if (error) {
             console.error('Error searching coins:', error);
@@ -18,9 +19,9 @@ function searchCoins(req, res, next) {
                 error: error.message
             });
         }
-
+        
         // Render the search results in the searchResults.ejs page
-        res.render('searchResults.ejs', { searchTerm: searchTerm, searchResults: searchResults });
+        res.render('searchResults.ejs', { searchTerm: searchTerm, searchResults: searchResults, user });
     });
 }
 

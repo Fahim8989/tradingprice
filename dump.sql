@@ -1,5 +1,5 @@
-CREATE DATABASE myPlatform;
-USE myPlatform;
+CREATE DATABASE trading_test;
+USE trading_test;
 
 
 
