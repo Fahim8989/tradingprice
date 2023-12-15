@@ -2,7 +2,7 @@ const userModel = require('../models/userModel');
 const axios=require('axios')
 
 async function getUserDetails(req, res) {
-    const userId = req.user.userId; // assuming you store user information in the JWT payload
+    const userId = req.user.userId;
 
     try {
         const user = await userModel.getUserById(userId);

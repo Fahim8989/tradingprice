@@ -10,6 +10,7 @@ CREATE TABLE users (
     password VARCHAR(255) NOT NULL
 );
 
+
 CREATE TABLE IF NOT EXISTS user_favorites (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
@@ -17,7 +18,8 @@ CREATE TABLE IF NOT EXISTS user_favorites (
     coin_name VARCHAR(255),
     coin_symbol VARCHAR(255),
     coin_image VARCHAR(255),
+    coin_current_price DECIMAL(16, 8), -- Assuming up to 16 total digits with up to 8 decimal places
+
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
-
 

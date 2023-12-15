@@ -1,8 +1,8 @@
 const db = require('../configs/db');
 
-async function favoriteCoin(userId, coinId, coinName, coinSymbol, coinImage) {
-    const query = 'INSERT INTO user_favorites (user_id, coin_id, coin_name, coin_symbol, coin_image) VALUES (?, ?, ?, ?, ?)';
-    await db.query(query, [userId, coinId, coinName, coinSymbol, coinImage]);
+async function favoriteCoin(userId, coinId, coinName, coinSymbol, coinImage, coinCurrentPrice) {
+    const query = 'INSERT INTO user_favorites (user_id, coin_id, coin_name, coin_symbol, coin_image, coin_current_price) VALUES (?, ?, ?, ?, ?, ?)';
+    await db.query(query, [userId, coinId, coinName, coinSymbol, coinImage, coinCurrentPrice]);
 }
 
 

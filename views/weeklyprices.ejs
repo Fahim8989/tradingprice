@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Prices</title>
+    <style>
+        body{
+            background-color:rgb(0, 0, 0);
+            color:rgb(255, 251, 241);
+        }
+
+        .weekly{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1{
+            padding-top: 10px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 70%;
+        }
+
+        th, td {
+            border: 1px solid rgb(224, 174, 7);
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            cursor: pointer;
+            background-color:rgb(216, 155, 24);
+        }
+        
+        
+        th:hover {
+            background-color: rgb(216, 155, 24);
+            color: black;
+        }
+
+      
+    label {
+        margin-bottom: 8px;
+        color: rgb(255, 149, 18);
+    }
+
+    input {
+        width: 200px;
+        padding: 8px;
+        margin-bottom: 16px;
+        border: 1px solid rgb(205, 149, 18);
+        border-radius: 4px;
+        margin-right: 20px;
+    }
+
+    button {
+        background-color: #000000;
+        color: rgb(255, 164, 6);
+        margin: 0 20px;
+        padding: 10px;
+        border: 1px solid rgb(255, 164, 6);;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color:rgb(255, 164, 6);
+        color: #000000;
+    }
+    </style>
+</head>
+
+<body>
+    <%- include('header') %>
+    <section class="weekly">
+    <h1>Weekly Prices</h1>
+
+    <form action="/weeklyprices" method="post">
+        <label for="base">Symbol:</label>
+        <input type="text" id="base" name="base" placeholder="i.e. btc" required>
+
+        <label for="quote">Market:</label>
+        <input type="text" id="quote" name="quote" placeholder="i.e. gbp" required>
+
+        <button type="submit">Get Weekly Prices</button>
+    </form>
+
+    <!-- Display weekly open prices -->
+    <% if (weeklyOpenPrices && weeklyOpenPrices.length > 0) { %>
+        <h2>Weekly Open Prices</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Weekly Open Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% weeklyOpenPrices.forEach(price => { %>
+                    <tr>
+                        <td><%= price.date %></td>
+                        <td><%= price.open %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    <% } %>
+</section>
+</body>
+</html>

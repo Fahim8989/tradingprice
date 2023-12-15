@@ -37,11 +37,15 @@ const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const favoriteRoutes = require('./routes/favoriteRoutes');
 const searchRoutes = require('./routes/searchRoutes');
+const addCustomCoinRoutes = require('./routes/addCustomCoinRoutes');
+const weeklyRoutes = require('./routes/weeklyRoutes');
 
 app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
 app.use('/favorites', favoriteRoutes);
 app.use('/search', searchRoutes);
+app.use('/addcustomcoin', addCustomCoinRoutes);
+app.use('/weeklyprices', weeklyRoutes);
 // Set up css
 
 
@@ -68,4 +72,17 @@ require("./routes/main")(app, priceData);
 app.listen(PORT, () => console.log(`App listening on port ${PORT}!`))
 //ssh -t mahme006@doc.gold.ac.uk myserver ssh 443
 
-
+//api
+// const url = 'https://coinranking1.p.rapidapi.com/coins?referenceCurrencyUuid=yhjMzLPhuIDl&timePeriod=24h&tiers%5B0%5D=1&orderBy=marketCap&orderDirection=desc&limit=50&offset=0';
+// const options = {
+// 	method: 'GET',
+// 	headers: {
+// 		'X-RapidAPI-Key': '41ef405466msh963b53c61d1e5b4p1996c8jsn17b1a35d99c4',
+// 		'X-RapidAPI-Host': 'coinranking1.p.rapidapi.com'
+// 	}
+// };
+// const URL = 'https://coinranking1.p.rapidapi.com/coins?referenceCurrencyUuid=yhjMzLPhuIDl&timePeriod=24h&tiers%5B0%5D=1&orderBy=marketCap&orderDirection=desc&limit=50&offset=0'
+// 	fetch(URL, options)
+// .then(response => response.json())
+// .then(response => console.log(response))
+// .catch(err => console.error(err));

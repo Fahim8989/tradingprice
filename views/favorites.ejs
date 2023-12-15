@@ -60,6 +60,7 @@
                 <th onclick="sortTable(0)">Name</th>
                 <th onclick="sortTable(1)">Symbol</th>
                 <th>Icon</th>
+                <th>Price</th>
                 <!-- Add other table headers as needed -->
                 <th >Actions</th>
             </tr>
@@ -70,18 +71,30 @@
                     <td><%= coin.coin_name %></td>
                     <td> <%= coin.coin_symbol %></td>
                     <td><img src="<%= coin.coin_image %>" alt="<%= coin.symbol %>"></td>
-                 
+                    <td> <%= coin.coin_current_price %></td>
                     <td>
                         <form action="/favorites/unfavorite/<%= coin.coin_id %>" method="post">
                             <button style="background-color: rgb(216, 155, 24); border-radius: 5px;" type="submit">Unfavorite&#128148;</button>
                         </form>
                     </td>
+                  
 
                 </tr>
             <% }); %>
         </tbody>
     </table>
-
+  <!---------------------------Footer------------------------------------------------------------------------------->
+  <footer class="sticky-footer">
+    <div class="footer-txt">
+        <h1>Trading Pricer</h1>
+        <p>The official website of Trading Pricer.</p>
+        <ul class="socials-footer">
+            <li><a href="#top">Back to Top</a></li>
+            <li><a href="mailto: mahme006@campus.goldsmiths.ac.uk">E-Mail</a></li>
+        </ul>
+        <p>&copy; Trading Pricer 2023</p>
+    </div>
+</footer>
     <script>
         function sortTable(columnIndex) {
             const table = document.getElementById("cryptoTable");
@@ -134,18 +147,4 @@
 </body>
 </html>
 
-        <!---------------------------Footer------------------------------------------------------------------------------->
-        <footer class="sticky-footer">
-            <div class="footer-txt">
-                <h1>Trading Pricer</h1>
-                <p>The official website of Trading Pricer.</p>
-                <ul class="socials-footer">
-                    <li><a href="#top">Back to Top</a></li>
-                    <li><a href="mailto: mahme006@campus.goldsmiths.ac.uk">E-Mail</a></li>
-                </ul>
-                <p>&copy; Trading Pricer 2023</p>
-            </div>
-        </footer>
-    </main>
-  </body>
-  </html>
+   

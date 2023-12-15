@@ -1,4 +1,3 @@
-// controllers/favoriteController.js
 const favoriteModel = require('../models/favoriteModel');
 const userModel = require('../models/userModel');
 
@@ -8,6 +7,8 @@ async function favoriteCoin(req, res) {
     const coinSymbol = req.body.symbol;
     const coinName = req.body.name;
     const coinImage = req.body.image;
+    const coinCurrentPrice=req.body.current_price;
+    
     try {
 
         favoriteModel.getFavoriteByUserIdAndCoinId(userId, coinId, (error, existingFavorite) => {
@@ -22,12 +23,13 @@ async function favoriteCoin(req, res) {
                 return;
             }
             else {
-                favoriteModel.favoriteCoin(userId, coinId, coinName, coinSymbol, coinImage);
+                 // The coin is not favorited, proceed to favorite
+                favoriteModel.favoriteCoin(userId, coinId, coinName, coinSymbol, coinImage,coinCurrentPrice);
                 res.status(200).send('Coin favorited successfully');
             }
         })
 
-        // The coin is not favorited, proceed to favorite
+   
 
     } catch (error) {
         console.error(error);
