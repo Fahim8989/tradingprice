@@ -9,7 +9,7 @@
     <style>
         body{
             background-color:rgb(0, 0, 0);
-            color: white;
+            color:rgb(255, 251, 241);
         }
         .cryptorates{
             display: flex;
@@ -25,19 +25,19 @@
         }
 
         th, td {
-            border: 1px solid #ddd;
+            border: 1px solid rgb(224, 174, 7);
             padding: 8px;
             text-align: left;
         }
 
         th {
             cursor: pointer;
-            background-color: #aaa;
+            background-color:rgb(216, 155, 24);
         }
         
         
         th:hover {
-            background-color: #f5f5f5;
+            background-color: rgb(216, 155, 24);
             color: black;
         }
 
@@ -51,10 +51,10 @@
 <body>
     <%- include('header') %>
     <section class="cryptorates">
-    <h1>Crypto Rates</h1>
+    <h1> Current Crypto Market Rates</h1>
 
     <table id="cryptoTable">
-       <i>*click on column name for sorting </i>
+       <i>*Click on each column name to sort or filter! </i>
         <thead>
             <tr>
                 <th onclick="sortTable(0)">Name</th>

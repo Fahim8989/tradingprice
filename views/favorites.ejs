@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crypto Rates</title>
+    <link rel="stylesheet" type="text/css" href="main.css" />
     <style>
         body{
             background-color:rgb(0, 0, 0);
@@ -23,19 +24,19 @@
         }
 
         th, td {
-            border: 1px solid #ddd;
+            border: 1px solid rgb(216, 155, 24);
             padding: 8px;
             text-align: left;
         }
 
         th {
             cursor: pointer;
-            background-color: #aaa;
+            background-color: rgb(216, 155, 24);
         }
         
         
         th:hover {
-            background-color: #f5f5f5;
+            background-color: #dfa811;
             color: black;
         }
 
@@ -50,10 +51,10 @@
 <body>
     <%- include('header') %>
     <section class="cryptorates">
-    <h1>Your Favorite Coins</h1>
+    <h1 style="color: rgb(216, 155, 24);">Your Favorite Coins</h1>
 
     <table id="cryptoTable">
-       <i>*click on column name for sorting </i>
+       <i style="color: rgb(216, 155, 24);">*click on column name for sorting </i>
         <thead>
             <tr>
                 <th onclick="sortTable(0)">Name</th>
@@ -72,7 +73,7 @@
                  
                     <td>
                         <form action="/favorites/unfavorite/<%= coin.coin_id %>" method="post">
-                            <button type="submit">Unfavorite</button>
+                            <button style="background-color: rgb(216, 155, 24); border-radius: 5px;" type="submit">Unfavorite&#128148;</button>
                         </form>
                     </td>
 
@@ -132,3 +133,19 @@
 </section>
 </body>
 </html>
+
+        <!---------------------------Footer------------------------------------------------------------------------------->
+        <footer class="sticky-footer">
+            <div class="footer-txt">
+                <h1>Trading Pricer</h1>
+                <p>The official website of Trading Pricer.</p>
+                <ul class="socials-footer">
+                    <li><a href="#top">Back to Top</a></li>
+                    <li><a href="mailto: mahme006@campus.goldsmiths.ac.uk">E-Mail</a></li>
+                </ul>
+                <p>&copy; Trading Pricer 2023</p>
+            </div>
+        </footer>
+    </main>
+  </body>
+  </html>

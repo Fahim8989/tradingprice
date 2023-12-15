@@ -27,6 +27,8 @@ span{
  h1 {
     font-family: "Lucida Console", "Courier New", monospace;
    color: rgb(276, 163, 6);
+   background-color: #6d530489;
+   border-radius: 15px;
 }
 .container h1{
   font-size: 40px;
@@ -46,6 +48,8 @@ p,li {
     	/*fade in out*/
 	-webkit-animation: fadeinout 1s;
 	animation: fadeinout 1s;
+  background-color: #6d530489;
+  border-radius: 25px;
 }
 
 @keyframes fadeinout {
@@ -81,7 +85,7 @@ a:link {
   /* mouse over link */
   a:hover {
     color: rgb(276, 163, 6);
-    background-color: black;
+    background-color:rgb(216, 155, 24);
     text-decoration: none;
     padding:5px 10px;
     border-radius: 3px;

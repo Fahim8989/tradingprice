@@ -21,7 +21,7 @@ async function getCryptoRates(req, res) {
             params: {
                 vs_currency: 'usd', // You can change the currency if needed
                 order: 'market_cap_desc',
-                per_page: 20,
+                per_page: 75,
                 page: 1,
                 sparkline: false,
             },
